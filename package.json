@@ -1,0 +1,12 @@
+{
+  "name": "emc-nodejs-app",
+  "version": "1.0.0",
+  "description": "A EMC Node.js app for Docker demo",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Venki",
+  "license": "EMC",
+  "dependencies": {}
+}
