@@ -15,7 +15,7 @@ after(() => {
 
 describe('GET /', () => {
   it('should return 200 OK and contain the expected message', (done) => {
-    supertest()
+    supertest(server)
       .get('/')
       .expect(200)
       .end((err, res) => {
