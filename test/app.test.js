@@ -19,7 +19,7 @@ describe('GET /', () => {
       .get('/')
       .expect(200)
       .end((err, res) => {
-        expect(res.text).to.include('Congratulations from EMC Node.js App');
+        expect(res.text).to.include('Congratulations from EMC Node.js');
         done(err);
       });
   });
