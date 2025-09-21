@@ -5,6 +5,7 @@ pipeline {
     IMAGE_NAME = 'devops_nodejs:latest'
     DOCKERHUB_CREDENTIALS = 'jenkins-dockerhub'  
     DOCKERHUB_REPO = 'ramyasree15/devops_nodejs' 
+    SONAR_TOKEN = credentials('jenkins-sonarqube')
   }
 
   stages {
@@ -19,7 +20,20 @@ pipeline {
         bat "docker build -t %IMAGE_NAME% ."
       }
     }
-
+  stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube-local') { // Your SonarQube server name in Jenkins
+                    bat """
+                      "sonar-scanner" ^
+                      -Dsonar.projectKey=sonar-jenkins-key ^
+                      -Dsonar.projectName="Project SonarQube Testing" ^
+                      -Dsonar.projectVersion=1.0 ^
+                      -Dsonar.sources=test ^
+                      -Dsonar.login=%SONAR_TOKEN%
+                    """
+                }
+              }
+              }
     stage('Docker Login and Push') {
       steps {
         withCredentials([usernamePassword(credentialsId: DOCKERHUB_CREDENTIALS, usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
